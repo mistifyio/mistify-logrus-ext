@@ -24,7 +24,8 @@ func TestErrorNotLost(t *testing.T) {
 		t.Fatal("Could not unmarshal formatted log entry: ", err)
 	}
 
-	if entry["error.msg"] != "test error message" {
+	errmap := entry["error"].(map[string]interface{})
+	if errmap["Message"] != "test error message" {
 		t.Fatal("Error message field not added")
 	}
 }
@@ -44,7 +45,8 @@ func TestErrorNotLostOnFieldNotNamedError(t *testing.T) {
 		t.Fatal("Could not unmarshal formatted log entry: ", err)
 	}
 
-	if entry["errorish.msg"] != msg {
+	errmap := entry["errorish"].(map[string]interface{})
+	if errmap["Message"] != msg {
 		t.Fatal("Error message field not set")
 	}
 }

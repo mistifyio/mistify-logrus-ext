@@ -10,6 +10,11 @@ import (
 
 type ExtJSONFormatter struct{}
 
+type FieldError struct {
+	Error   error
+	Message string
+}
+
 func (f *ExtJSONFormatter) prefixFieldClashes(data log.Fields) {
 	_, ok := data["time"]
 	if ok {
@@ -31,9 +36,10 @@ func (f *ExtJSONFormatter) Format(entry *log.Entry) ([]byte, error) {
 	data := make(log.Fields, len(entry.Data)+3)
 	for k, v := range entry.Data {
 		if err, ok := v.(error); ok {
-			data[k+".msg"] = err.Error()
+			data[k] = FieldError{err, err.Error()}
+		} else {
+			data[k] = v
 		}
-		data[k] = v
 	}
 	f.prefixFieldClashes(data)
 	data["time"] = entry.Time.Format(time.RFC3339)
