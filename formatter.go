@@ -16,18 +16,15 @@ type FieldError struct {
 }
 
 func (f *ExtJSONFormatter) prefixFieldClashes(data log.Fields) {
-	_, ok := data["time"]
-	if ok {
+	if _, ok := data["time"]; ok {
 		data["fields.time"] = data["time"]
 	}
 
-	_, ok = data["msg"]
-	if ok {
+	if _, ok := data["msg"]; ok {
 		data["fields.msg"] = data["msg"]
 	}
 
-	_, ok = data["level"]
-	if ok {
+	if _, ok := data["level"]; ok {
 		data["fields.level"] = data["level"]
 	}
 }
