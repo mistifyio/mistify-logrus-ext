@@ -5,11 +5,12 @@ import (
 )
 
 func DefaultSetup(logLevel string) error {
-	log.SetFormatter(&ExtJSONFormatter{})
 	level, err := log.ParseLevel(logLevel)
 	if err != nil {
 		return err
 	}
 	log.SetLevel(level)
+	log.SetFormatter(&log.JSONFormatter{})
+	log.AddHook(&ErrorStructHook{})
 	return nil
 }
