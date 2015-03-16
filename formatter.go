@@ -5,8 +5,10 @@ import (
 )
 
 type (
-	MistifyFormatter struct{}
-	FieldError       struct {
+	MistifyFormatter struct {
+		log.JSONFormatter
+	}
+	FieldError struct {
 		Error   error
 		Message string
 	}
@@ -18,6 +20,5 @@ func (f *MistifyFormatter) Format(entry *log.Entry) ([]byte, error) {
 			entry.Data[k] = FieldError{err, err.Error()}
 		}
 	}
-	d := new(log.JSONFormatter)
-	return d.Format(entry)
+	return f.JSONFormatter.Format(entry)
 }
