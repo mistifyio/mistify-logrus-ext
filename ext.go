@@ -9,8 +9,7 @@ func DefaultSetup(logLevel string) error {
 	if err != nil {
 		return err
 	}
-	log.SetFormatter(&log.JSONFormatter{})
-	log.AddHook(&ErrorStructHook{})
+	log.SetFormatter(&MistifyFormatter{})
 	return nil
 }
 

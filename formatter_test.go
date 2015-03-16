@@ -15,8 +15,7 @@ func TestErrorNotLost(t *testing.T) {
 	var buffer bytes.Buffer
 	logger := log.New()
 	logger.Out = &buffer
-	logger.Formatter = new(log.JSONFormatter)
-	logger.Hooks.Add(new(logx.ErrorStructHook))
+	logger.Formatter = new(logx.MistifyFormatter)
 
 	logger.WithField("error", errors.New("test error message")).Info("test info message")
 
@@ -32,8 +31,7 @@ func TestErrorNotLostOnFieldNotNamedError(t *testing.T) {
 	var buffer bytes.Buffer
 	logger := log.New()
 	logger.Out = &buffer
-	logger.Formatter = new(log.JSONFormatter)
-	logger.Hooks.Add(new(logx.ErrorStructHook))
+	logger.Formatter = new(logx.MistifyFormatter)
 
 	logger.WithField("errorish", errors.New("test error message")).Info("test info message")
 
