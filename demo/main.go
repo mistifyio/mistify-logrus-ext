@@ -7,12 +7,12 @@ import (
 	logx "github.com/mistifyio/mistify-logrus-ext"
 )
 
-type TestError struct {
+type testError struct {
 	Val1 string
 	Val2 string
 }
 
-func (e *TestError) Error() string {
+func (e *testError) Error() string {
 	return "This is a complex error"
 }
 
@@ -22,7 +22,7 @@ func main() {
 	log.WithFields(log.Fields{
 		"foo":    "bar",
 		"error1": fmt.Errorf("This is a basic error"),
-		"error2": &TestError{"foobar", "baz"},
+		"error2": &testError{"foobar", "baz"},
 	}).Info("Logging before setup with fields")
 
 	err1 := logx.DefaultSetup("bad log level")
@@ -45,6 +45,6 @@ func main() {
 	log.WithFields(log.Fields{
 		"foo":    "bar",
 		"error1": fmt.Errorf("This is a basic error"),
-		"error2": &TestError{"foobar", "baz"},
+		"error2": &testError{"foobar", "baz"},
 	}).Info("Logging after setup with fields")
 }

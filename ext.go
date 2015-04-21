@@ -4,6 +4,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
+// DefaultSetup sets the logrus formatter and log level
 func DefaultSetup(logLevel string) error {
 	err := SetLevel(logLevel)
 	if err != nil {
@@ -13,6 +14,7 @@ func DefaultSetup(logLevel string) error {
 	return nil
 }
 
+// SetLevel parses and sets the log level
 func SetLevel(logLevel string) error {
 	level, err := log.ParseLevel(logLevel)
 	if err != nil {
