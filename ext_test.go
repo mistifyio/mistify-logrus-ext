@@ -83,10 +83,7 @@ func (s *ExtTestSuite) TestLogReturnedErr() {
 	}
 
 	logx.LogReturnedErr(returnsNil, nil, logMsg)
-	out = buffer.String()
-	s.NotContains(out, logMsg)
-	s.NotContains(out, errMsg)
-	buffer.Truncate(0)
+	s.Empty(buffer.String())
 
 	// Error logged
 	returnsError := func() error {
